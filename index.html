@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Rift Schedule</title>
+	<!--meta-->
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+
+	<!---->
+</head>
+<script>
+const currentDate = Date.now();
+const currentFullDate = new Date(currentDate);
+const currentYear = currentFullDate.getFullYear();
+const currentMonth = currentFullDate.getMonth() + 1;
+const currentDay = currentFullDate.getDate();
+
+function getSchedule() {
+	const referenceDate = new Date("2025-03-02");
+	let scheduleSet = 1;
+	
+	const tier1Schedule = {"0": ["12:38 AM", "2:18 AM", "3:58 AM", "5:38 AM", "7:18 AM", "8:58 AM", "10:38 AM", "12:18 PM", "1:58 PM", "3:38 PM", "5:18 PM", "6:58 PM", "8:38 PM", "10:18 PM", "11:58 PM"],
+							"1": ["1:38 AM", "3:18 AM", "4:58 AM", "6:38 AM", "8:18 AM", "9:58 AM", "11:38 AM", "1:18 PM", "2:58 PM", "4:38 PM", "6:18 PM", "7:58 PM", "9:38 PM", "11:18 PM"],
+							"2": ["12:58 AM", "2:38 AM", "4:18 AM", "5:58 AM", "7:38 AM", "9:18 AM", "10:58 AM", "12:38 PM", "2:18 PM", "3:58 PM", "5:38 PM", "7:18 PM", "8:58 PM", "10:38 PM"],
+							"3": ["12:18 AM", "1:58 AM", "3:38 AM", "5:18 AM", "6:58 AM", "8:38 AM", "10:18 AM", "11:58 AM", "1:38 PM", "3:18 PM", "4:58 PM", "6:38 PM", "8:18 PM", "9:58 PM", "11:38 PM"],
+							"4": ["1:18 AM", "2:58 AM", "4:38 AM", "6:18 AM", "7:58 AM", "9:38 AM", "11:18 AM", "12:58 PM", "2:38 PM", "4:18 PM", "5:58 PM", "7:38 PM", "9:18 PM", "10:58 PM"]};
+	
+	const tier2Schedule = {"0": ["12:58 AM", "2:38 AM", "4:18 AM", "5:58 AM", "7:38 AM", "9:18 AM", "10:58 AM", "12:38 PM", "2:18 PM", "3:58 PM", "5:38 PM", "7:18 PM", "8:58 PM", "10:38 PM", "12:18 AM"],
+							"1": ["1:58 AM", "3:38 AM", "5:18 AM", "6:58 AM", "8:38 AM", "10:18 AM", "11:58 AM", "1:38 PM", "3:18 PM", "4:58 PM", "6:38 PM", "8:18 PM", "9:58 PM", "11:38 PM"],
+							"2": ["1:18 AM", "2:58 AM", "4:38 AM", "6:18 AM", "7:58 AM", "9:38 AM", "11:18 AM", "12:58 PM", "2:38 PM", "4:18 PM", "5:58 PM", "7:38 PM", "9:18 PM", "10:58 PM"],
+							"3": ["12:38 AM", "2:18 AM", "3:58 AM", "5:38 AM", "7:18 AM", "8:58 AM", "10:38 AM", "12:18 PM", "1:58 PM", "3:38 PM", "5:18 PM", "6:58 PM", "8:38 PM", "10:18 PM", "11:58 PM"],
+						    "4": ["1:38 AM", "3:18 AM", "4:58 AM", "6:38 AM", "8:18 AM", "9:58 AM", "11:38 AM", "1:18 PM", "2:58 PM", "4:38 PM", "6:18 PM", "7:58 PM", "9:38 PM", "11:18 PM"]};
+	
+	const dayDiff = Math.floor(((currentDate - referenceDate) - (currentFullDate.getTimezoneOffset() *1000*60)) / (1000*60*60*24));
+
+	scheduleSet = (scheduleSet + dayDiff) % 5;
+	let nextScheduleSet = (scheduleSet + 1) % 5;
+	
+	return [tier1Schedule[scheduleSet], tier2Schedule[scheduleSet], tier1Schedule[nextScheduleSet], tier2Schedule[nextScheduleSet]];
+}
+
+function updatePage() {
+	const date1Label = document.getElementById('date1');
+	const date2Label = document.getElementById('date2');
+	date1Label.innerHTML = currentYear + '-' + currentMonth + '-' + currentDay;
+	date2Label.innerHTML = currentYear + '-' + currentMonth + '-' + (currentDay+1);
+	
+	const schedule1Tier1Label = document.getElementById('schedule1tier1');
+	const schedule1Tier2Label = document.getElementById('schedule1tier2');
+	const schedule2Tier1Label = document.getElementById('schedule2tier1');
+	const schedule2Tier2Label = document.getElementById('schedule2tier2');
+	
+	const [schedule1Tier1, schedule1Tier2, schedule2Tier1, schedule2Tier2] = getSchedule();
+	
+	let schedule1Tier1HTML = '';
+	for (let i in schedule1Tier1) {
+		schedule1Tier1HTML += schedule1Tier1[i] + '</br>';
+	}
+	
+	let schedule1Tier2HTML = '';
+	for (let i in schedule1Tier2) {
+		schedule1Tier2HTML += schedule1Tier2[i] + '</br>';
+	}
+	
+	let schedule2Tier1HTML = '';
+	for (let i in schedule2Tier1) {
+		schedule2Tier1HTML += schedule2Tier1[i] + '</br>';
+	}
+	
+	let schedule2Tier2HTML = '';
+	for (let i in schedule2Tier2) {
+		schedule2Tier2HTML += schedule2Tier2[i] + '</br>';
+	}
+	schedule1Tier1Label.innerHTML = schedule1Tier1HTML;
+	schedule1Tier2Label.innerHTML = schedule1Tier2HTML;
+	schedule2Tier1Label.innerHTML = schedule2Tier1HTML;
+	schedule2Tier2Label.innerHTML = schedule2Tier2HTML;
+}
+</script>
+
+<body>
+<table>
+		<tr>
+			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date1"></b></h2></td>
+			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date2"></b></h2></td>
+		</tr>
+		<tr>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
+		</tr>
+		<tr>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule1tier1"></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule1tier2"></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier1"></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier2"></div></td>
+		</tr>
+</table>
+</body>
+<script>
+updatePage();
+</script>
+</html>
