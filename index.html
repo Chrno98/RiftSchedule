@@ -32,10 +32,10 @@ function getSchedule() {
 	
 	const dayDiff = Math.floor(((currentDate - referenceDate) - (currentFullDate.getTimezoneOffset() *1000*60)) / (1000*60*60*24));
 
-	scheduleSet = (scheduleSet + dayDiff) % 5;
-	let nextScheduleSet = (scheduleSet + 1) % 5;
+	let currentscheduleSet = (scheduleSet + dayDiff) % 5;
+	let nextScheduleSet = (currentscheduleSet + 1) % 5;
 	
-	return [tier1Schedule[scheduleSet], tier2Schedule[scheduleSet], tier1Schedule[nextScheduleSet], tier2Schedule[nextScheduleSet]];
+	return [tier1Schedule[currentscheduleSet], tier2Schedule[currentscheduleSet], tier1Schedule[nextScheduleSet], tier2Schedule[nextScheduleSet], tier1Schedule[scheduleSet], tier2Schedule[scheduleSet]];
 }
 
 function updatePage() {
@@ -48,32 +48,47 @@ function updatePage() {
 	const schedule1Tier2Label = document.getElementById('schedule1tier2');
 	const schedule2Tier1Label = document.getElementById('schedule2tier1');
 	const schedule2Tier2Label = document.getElementById('schedule2tier2');
+	const staticTier1Label = document.getElementById('statictier1');
+	const staticTier2Label = document.getElementById('statictier2');
 	
-	const [schedule1Tier1, schedule1Tier2, schedule2Tier1, schedule2Tier2] = getSchedule();
+	const [schedule1Tier1, schedule1Tier2, schedule2Tier1, schedule2Tier2, staticTier1, staticTier2] = getSchedule();
 	
 	let schedule1Tier1HTML = '';
-	for (let i in schedule1Tier1) {
-		schedule1Tier1HTML += schedule1Tier1[i] + '</br>';
+	for (let i of schedule1Tier1) {
+		schedule1Tier1HTML += i + '</br>';
 	}
 	
 	let schedule1Tier2HTML = '';
-	for (let i in schedule1Tier2) {
-		schedule1Tier2HTML += schedule1Tier2[i] + '</br>';
+	for (let i of schedule1Tier2) {
+		schedule1Tier2HTML += i + '</br>';
 	}
 	
 	let schedule2Tier1HTML = '';
-	for (let i in schedule2Tier1) {
-		schedule2Tier1HTML += schedule2Tier1[i] + '</br>';
+	for (let i of schedule2Tier1) {
+		schedule2Tier1HTML += i + '</br>';
 	}
 	
 	let schedule2Tier2HTML = '';
-	for (let i in schedule2Tier2) {
-		schedule2Tier2HTML += schedule2Tier2[i] + '</br>';
+	for (let i of schedule2Tier2) {
+		schedule2Tier2HTML += i + '</br>';
 	}
+
+	let staticTier1HTML = '';
+	for (let i of staticTier1) {
+		staticTier1HTML += i + '</br>';
+	}
+	
+	let staticTier2HTML = '';
+	for (let i of staticTier2) {
+		staticTier2HTML += i + '</br>';
+	}
+	
 	schedule1Tier1Label.innerHTML = schedule1Tier1HTML;
 	schedule1Tier2Label.innerHTML = schedule1Tier2HTML;
 	schedule2Tier1Label.innerHTML = schedule2Tier1HTML;
 	schedule2Tier2Label.innerHTML = schedule2Tier2HTML;
+	staticTier1Label.innerHTML = staticTier1HTML;
+	staticTier2Label.innerHTML = staticTier2HTML;
 }
 </script>
 
@@ -82,8 +97,11 @@ function updatePage() {
 		<tr>
 			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date1"></b></h2></td>
 			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date2"></b></h2></td>
+			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b>Static Schedule</b></h2></td>
 		</tr>
 		<tr>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
 			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
 			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
 			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
@@ -94,6 +112,8 @@ function updatePage() {
 			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule1tier2"></div></td>
 			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier1"></div></td>
 			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier2"></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "statictier1"></div></td>
+			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "statictier2"></div></td>
 		</tr>
 </table>
 </body>
