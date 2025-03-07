@@ -4,120 +4,272 @@
 	<title>Rift Schedule</title>
 	<!--meta-->
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-
 	<!---->
 </head>
 <script>
+const referenceDate = new Date("2025-03-07 10:18");
+const scheduleSet = 0;
+	
+const tier1Schedule = {0: ['12:18 AM', '01:58 AM', '03:38 AM', '05:18 AM', '06:58 AM', '08:38 AM', '10:18 AM', '11:58 AM', '01:38 PM', '03:18 PM', '04:58 PM', '06:38 PM', '08:18 PM', '09:58 PM', '11:38 PM'], 
+						1: ['01:18 AM', '02:58 AM', '04:38 AM', '06:18 AM', '07:58 AM', '09:38 AM', '11:18 AM', '12:58 PM', '02:38 PM', '04:18 PM', '05:58 PM', '07:38 PM', '09:18 PM', '10:58 PM'], 
+						2: ['12:38 AM', '02:18 AM', '03:58 AM', '05:38 AM', '07:18 AM', '08:58 AM', '10:38 AM', '12:18 PM', '01:58 PM', '03:38 PM', '05:18 PM', '06:58 PM', '08:38 PM', '10:18 PM', '11:58 PM'], 
+						3: ['01:38 AM', '03:18 AM', '04:58 AM', '06:38 AM', '08:18 AM', '09:58 AM', '11:38 AM', '01:18 PM', '02:58 PM', '04:38 PM', '06:18 PM', '07:58 PM', '09:38 PM', '11:18 PM'], 
+						4: ['12:58 AM', '02:38 AM', '04:18 AM', '05:58 AM', '07:38 AM', '09:18 AM', '10:58 AM', '12:38 PM', '02:18 PM', '03:58 PM', '05:38 PM', '07:18 PM', '08:58 PM', '10:38 PM']};
+	
+const tier2Schedule = {0: ['12:38 AM', '02:18 AM', '03:58 AM', '05:38 AM', '07:18 AM', '08:58 AM', '10:38 AM', '12:18 PM', '01:58 PM', '03:38 PM', '05:18 PM', '06:58 PM', '08:38 PM', '10:18 PM', '11:58 PM'], 
+						1: ['01:38 AM', '03:18 AM', '04:58 AM', '06:38 AM', '08:18 AM', '09:58 AM', '11:38 AM', '01:18 PM', '02:58 PM', '04:38 PM', '06:18 PM', '07:58 PM', '09:38 PM', '11:18 PM'], 
+						2: ['12:58 AM', '02:38 AM', '04:18 AM', '05:58 AM', '07:38 AM', '09:18 AM', '10:58 AM', '12:38 PM', '02:18 PM', '03:58 PM', '05:38 PM', '07:18 PM', '08:58 PM', '10:38 PM', '12:18 AM'], 
+						3: ['01:58 AM', '03:38 AM', '05:18 AM', '06:58 AM', '08:38 AM', '10:18 AM', '11:58 AM', '01:38 PM', '03:18 PM', '04:58 PM', '06:38 PM', '08:18 PM', '09:58 PM', '11:38 PM'], 
+						4: ['01:18 AM', '02:58 AM', '04:38 AM', '06:18 AM', '07:58 AM', '09:38 AM', '11:18 AM', '12:58 PM', '02:38 PM', '04:18 PM', '05:58 PM', '07:38 PM', '09:18 PM', '10:58 PM']};
+
 const currentDate = Date.now();
 const currentFullDate = new Date(currentDate);
 const currentYear = currentFullDate.getFullYear();
 const currentMonth = currentFullDate.getMonth() + 1;
 const currentDay = currentFullDate.getDate();
 
-function getSchedule() {
-	const referenceDate = new Date("2025-03-06");
-	let scheduleSet = 4;
-	
-	const tier1Schedule = {0: ['01:14 AM', '02:54 AM', '04:34 AM', '06:14 AM', '07:54 AM', '09:34 AM', '11:14 AM', '12:54 PM', '02:34 PM', '04:14 PM', '05:54 PM', '07:34 PM', '09:14 PM', '10:54 PM'], 
-			       1: ['12:34 AM', '02:14 AM', '03:54 AM', '05:34 AM', '07:14 AM', '08:54 AM', '10:34 AM', '12:14 PM', '01:54 PM', '03:34 PM', '05:14 PM', '06:54 PM', '08:34 PM', '10:14 PM', '11:54 PM'], 
-			       2: ['01:34 AM', '03:14 AM', '04:54 AM', '06:34 AM', '08:14 AM', '09:54 AM', '11:34 AM', '01:14 PM', '02:54 PM', '04:34 PM', '06:14 PM', '07:54 PM', '09:34 PM', '11:14 PM'], 
-			       3: ['12:54 AM', '02:34 AM', '04:14 AM', '05:54 AM', '07:34 AM', '09:14 AM', '10:54 AM', '12:34 PM', '02:14 PM', '03:54 PM', '05:34 PM', '07:14 PM', '08:54 PM', '10:34 PM'], 
-			       4: ['12:14 AM', '01:54 AM', '03:34 AM', '05:14 AM', '06:54 AM', '08:34 AM', '10:14 AM', '11:54 AM', '01:34 PM', '03:14 PM', '04:54 PM', '06:34 PM', '08:14 PM', '09:54 PM', '11:34 PM']};
-	
-	const tier2Schedule = {0: ['01:34 AM', '03:14 AM', '04:54 AM', '06:34 AM', '08:14 AM', '09:54 AM', '11:34 AM', '01:14 PM', '02:54 PM', '04:34 PM', '06:14 PM', '07:54 PM', '09:34 PM', '11:14 PM'], 
-			       1: ['12:54 AM', '02:34 AM', '04:14 AM', '05:54 AM', '07:34 AM', '09:14 AM', '10:54 AM', '12:34 PM', '02:14 PM', '03:54 PM', '05:34 PM', '07:14 PM', '08:54 PM', '10:34 PM', '12:14 AM'], 
-			       2: ['01:54 AM', '03:34 AM', '05:14 AM', '06:54 AM', '08:34 AM', '10:14 AM', '11:54 AM', '01:34 PM', '03:14 PM', '04:54 PM', '06:34 PM', '08:14 PM', '09:54 PM', '11:34 PM'], 
-			       3: ['01:14 AM', '02:54 AM', '04:34 AM', '06:14 AM', '07:54 AM', '09:34 AM', '11:14 AM', '12:54 PM', '02:34 PM', '04:14 PM', '05:54 PM', '07:34 PM', '09:14 PM', '10:54 PM'], 
-			       4: ['12:34 AM', '02:14 AM', '03:54 AM', '05:34 AM', '07:14 AM', '08:54 AM', '10:34 AM', '12:14 PM', '01:54 PM', '03:34 PM', '05:14 PM', '06:54 PM', '08:34 PM', '10:14 PM', '11:54 PM']};
-	
-	const dayDiff = Math.floor(((currentDate - referenceDate) - (currentFullDate.getTimezoneOffset() *1000*60)) / (1000*60*60*24));
+let localDate = Number(localStorage.getItem("localDate"));
+let localFullDate = "";
+let localYear;
+let localMonth;
+let localDay;
+let localScheduleSet = 0;
+let localTier1Schedule = {"0": [], "1": [], "2": [], "3": [], "4": []};
+let localTier2Schedule = {"0": [], "1": [], "2": [], "3": [], "4": []};
 
-	let currentscheduleSet = (scheduleSet + dayDiff) % 5;
-	let nextScheduleSet = (currentscheduleSet + 1) % 5;
+if (localDate) {
+	localFullDate = new Date(localDate);
+	localYear = localFullDate.getFullYear();
+	localMonth = localFullDate.getMonth() + 1;
+	localDay = localFullDate.getDate();
+	localScheduleSet = Number(localStorage.getItem("scheduleSet"));
 	
-	return [tier1Schedule[currentscheduleSet], tier2Schedule[currentscheduleSet], tier1Schedule[nextScheduleSet], tier2Schedule[nextScheduleSet], tier1Schedule[scheduleSet], tier2Schedule[scheduleSet]];
+	localTier1Schedule[0] = localStorage.getItem("tier1ScheduleSet0").split(",");
+	localTier1Schedule[1] = localStorage.getItem("tier1ScheduleSet1").split(",");
+	localTier1Schedule[2] = localStorage.getItem("tier1ScheduleSet2").split(",");
+	localTier1Schedule[3] = localStorage.getItem("tier1ScheduleSet3").split(",");
+	localTier1Schedule[4] = localStorage.getItem("tier1ScheduleSet4").split(",");
+	localTier2Schedule[0] = localStorage.getItem("tier2ScheduleSet0").split(",");
+	localTier2Schedule[1] = localStorage.getItem("tier2ScheduleSet1").split(",");
+	localTier2Schedule[2] = localStorage.getItem("tier2ScheduleSet2").split(",");
+	localTier2Schedule[3] = localStorage.getItem("tier2ScheduleSet3").split(",");
+	localTier2Schedule[4] = localStorage.getItem("tier2ScheduleSet4").split(",");
 }
 
-function updatePage() {
+function getSchedule() {
+	const localDataUsedRadio = document.getElementById('localDataUsed');
+	if (localDataUsedRadio.checked) {
+		let dayDiff = Math.floor(((currentDate - localDate) - (currentFullDate.getTimezoneOffset() *1000*60)) / (1000*60*60*24));
+		if (dayDiff < 0) {dayDiff = 0;}
+		
+		const currentScheduleSet = (localScheduleSet + dayDiff) % 5;
+		const nextScheduleSet = (currentScheduleSet + 1) % 5;
+	
+		return [localTier1Schedule[localScheduleSet], localTier2Schedule[localScheduleSet], 
+				localTier1Schedule[currentScheduleSet], localTier2Schedule[currentScheduleSet], 
+				localTier1Schedule[nextScheduleSet], localTier2Schedule[nextScheduleSet]];		
+	}
+
+	let dayDiff = Math.floor(((currentDate - referenceDate.valueOf()) - (currentFullDate.getTimezoneOffset() *1000*60)) / (1000*60*60*24));
+	if (dayDiff < 0) {dayDiff = 0;}
+
+	const currentScheduleSet = (scheduleSet + dayDiff) % 5;
+	const nextScheduleSet = (currentScheduleSet + 1) % 5;
+	
+	return [tier1Schedule[scheduleSet], tier2Schedule[scheduleSet], 
+			tier1Schedule[currentScheduleSet], tier2Schedule[currentScheduleSet], 
+			tier1Schedule[nextScheduleSet], tier2Schedule[nextScheduleSet]];
+}
+
+function updateSchedulePanel() {
 	const date1Label = document.getElementById('date1');
 	const date2Label = document.getElementById('date2');
 	date1Label.innerHTML = currentYear + '-' + currentMonth + '-' + currentDay;
 	date2Label.innerHTML = currentYear + '-' + currentMonth + '-' + (currentDay+1);
 	
+	const staticTier1Label = document.getElementById('statictier1');
+	const staticTier2Label = document.getElementById('statictier2');
 	const schedule1Tier1Label = document.getElementById('schedule1tier1');
 	const schedule1Tier2Label = document.getElementById('schedule1tier2');
 	const schedule2Tier1Label = document.getElementById('schedule2tier1');
 	const schedule2Tier2Label = document.getElementById('schedule2tier2');
-	const staticTier1Label = document.getElementById('statictier1');
-	const staticTier2Label = document.getElementById('statictier2');
 	
-	const [schedule1Tier1, schedule1Tier2, schedule2Tier1, schedule2Tier2, staticTier1, staticTier2] = getSchedule();
+	const [staticTier1, staticTier2, schedule1Tier1, schedule1Tier2, schedule2Tier1, schedule2Tier2] = getSchedule();
 	
-	let schedule1Tier1HTML = '';
-	for (let i of schedule1Tier1) {
-		schedule1Tier1HTML += i + '</br>';
-	}
-	
-	let schedule1Tier2HTML = '';
-	for (let i of schedule1Tier2) {
-		schedule1Tier2HTML += i + '</br>';
-	}
-	
-	let schedule2Tier1HTML = '';
-	for (let i of schedule2Tier1) {
-		schedule2Tier1HTML += i + '</br>';
-	}
-	
-	let schedule2Tier2HTML = '';
-	for (let i of schedule2Tier2) {
-		schedule2Tier2HTML += i + '</br>';
-	}
-
 	let staticTier1HTML = '';
-	for (let i of staticTier1) {
-		staticTier1HTML += i + '</br>';
-	}
+	for (let i of staticTier1) {	staticTier1HTML += i + '</br>'; }
 	
 	let staticTier2HTML = '';
-	for (let i of staticTier2) {
-		staticTier2HTML += i + '</br>';
-	}
+	for (let i of staticTier2) { staticTier2HTML += i + '</br>'; }
 	
+	let schedule1Tier1HTML = '';
+	for (let i of schedule1Tier1) {	schedule1Tier1HTML += i + '</br>'; }
+	
+	let schedule1Tier2HTML = '';
+	for (let i of schedule1Tier2) { schedule1Tier2HTML += i + '</br>'; }
+	
+	let schedule2Tier1HTML = '';
+	for (let i of schedule2Tier1) { schedule2Tier1HTML += i + '</br>'; }
+	
+	let schedule2Tier2HTML = '';
+	for (let i of schedule2Tier2) { schedule2Tier2HTML += i + '</br>'; }
+	
+	staticTier1Label.innerHTML = schedule1Tier1HTML;
+	staticTier2Label.innerHTML = schedule1Tier2HTML;
 	schedule1Tier1Label.innerHTML = schedule1Tier1HTML;
 	schedule1Tier2Label.innerHTML = schedule1Tier2HTML;
 	schedule2Tier1Label.innerHTML = schedule2Tier1HTML;
 	schedule2Tier2Label.innerHTML = schedule2Tier2HTML;
-	staticTier1Label.innerHTML = staticTier1HTML;
-	staticTier2Label.innerHTML = staticTier2HTML;
+}
+
+function updateDataInfoPanel() {
+	const webpageLastUpdatedLabel = document.getElementById('webpageLastUpdated');
+	const localLastUpdatedLabel = document.getElementById('localLastUpdated');
+
+	webpageLastUpdatedLabel.innerHTML = referenceDate;
+	localLastUpdatedLabel.innerHTML = localFullDate;
+}
+
+function updatePage() {
+	updateDataInfoPanel();
+	updateSchedulePanel();
+
+	const localDateInput = document.getElementById('localDate');
+	localDateInput.value = currentFullDate.toISOString().substring(0,10);
+}
+
+function recalculateSchedule() {
+	const localDateInput = document.getElementById('localDate');
+	const localTimeInput = document.getElementById('localTime');
+	
+	if (localTimeInput.value) {
+		let localDateTime = localDateInput.value + " " + localTimeInput.value;
+		localFullDate = new Date(localDateTime);
+		localDate = localFullDate.valueOf();
+		localYear = localFullDate.getFullYear();
+		localMonth = localFullDate.getMonth() + 1;
+		localDay = localFullDate.getDate();
+	
+		localScheduleSet = 0;
+		localTier1Schedule = {"0": [], "1": [], "2": [], "3": [], "4": [], "5": []};
+		localTier2Schedule = {"0": [], "1": [], "2": [], "3": [], "4": [], "5": []};
+		
+		const timeOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+		let previousLocalDate = localDate;
+		let setCounter = String(0);
+		
+		localTier1Schedule[setCounter].push(new Date(previousLocalDate).toLocaleString('en-US', timeOptions));
+		localTier2Schedule[setCounter].push(new Date(previousLocalDate + (20*60*1000)).toLocaleString('en-US', timeOptions));
+	
+		let previousHourCheck = new Date(previousLocalDate).toTimeString().substring(0,2);
+		
+		for (let i = 1; i < 72; i++) {
+			previousLocalDate = previousLocalDate + (100*60*1000);
+			const hourCheck = new Date(previousLocalDate).toTimeString().substring(0,2);
+
+			if (previousHourCheck > hourCheck) {
+				setCounter = String(Number(setCounter) + 1);
+			}
+			localTier1Schedule[setCounter].push(new Date(previousLocalDate).toLocaleString('en-US', timeOptions));
+			localTier2Schedule[setCounter].push(new Date(previousLocalDate + (20*60*1000)).toLocaleString('en-US', timeOptions));
+			
+			previousHourCheck = hourCheck;
+		}
+		
+		localTier1Schedule[0] = localTier1Schedule[5].concat(localTier1Schedule[0]);
+		localTier2Schedule[0] = localTier2Schedule[5].concat(localTier2Schedule[0]);
+		
+		const localDataUsedRadio = document.getElementById('localDataUsed');
+		localDataUsedRadio.checked = true;
+		
+		saveToLocalStorage();
+		updateDataInfoPanel();
+		updateSchedulePanel();
+	}
+}
+
+function saveToLocalStorage() {
+	 localStorage.setItem("localDate", localDate);
+	 localStorage.setItem("scheduleSet", localScheduleSet);
+	 localStorage.setItem("tier1ScheduleSet0", localTier1Schedule[0].toString());
+	 localStorage.setItem("tier1ScheduleSet1", localTier1Schedule[1].toString());
+	 localStorage.setItem("tier1ScheduleSet2", localTier1Schedule[2].toString());
+	 localStorage.setItem("tier1ScheduleSet3", localTier1Schedule[3].toString());
+	 localStorage.setItem("tier1ScheduleSet4", localTier1Schedule[4].toString());
+	 localStorage.setItem("tier2ScheduleSet0", localTier2Schedule[0].toString());
+	 localStorage.setItem("tier2ScheduleSet1", localTier2Schedule[1].toString());
+	 localStorage.setItem("tier2ScheduleSet2", localTier2Schedule[2].toString());
+	 localStorage.setItem("tier2ScheduleSet3", localTier2Schedule[3].toString());
+	 localStorage.setItem("tier2ScheduleSet4", localTier2Schedule[4].toString());
 }
 </script>
 
 <body>
 <table>
-		<tr>
-			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date1"></b></h2></td>
-			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b id = "date2"></b></h2></td>
-			<td colspan=2 style="padding-left:20px; padding-right:20px"><h2><b>Static Schedule</b></h2></td>
-		</tr>
-		<tr>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 1</b></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px"><div><b>Rift Tier 2</b></div></td>
-		</tr>
-		<tr>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule1tier1"></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule1tier2"></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier1"></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "schedule2tier2"></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "statictier1"></div></td>
-			<td style="padding-left:20px; padding-right:20px; font-size:20px; vertical-align:top;"><div id = "statictier2"></div></td>
-		</tr>
+	<tr>
+		<td colspan=2 style="padding-left:15px; padding-right:15px"><h3><b>Static Schedule</b></h3></td>
+		<td colspan=2 style="padding-left:15px; padding-right:15px"><h3><b id = "date1"></b></h3></td>
+		<td colspan=2 style="padding-left:15px; padding-right:15px"><h3><b id = "date2"></b></h3></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 1</b></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 2</b></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 1</b></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 2</b></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 1</b></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px"><b>Rift Tier 2</b></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top; height:300px"><div id = "statictier1"></div></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top;"><div id = "statictier2"></div></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top;"><div id = "schedule1tier1"></div></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top;"><div id = "schedule1tier2"></div></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top;"><div id = "schedule2tier1"></div></td>
+		<td style="padding-left:15px; padding-right:15px; font-size:16px; vertical-align:top;"><div id = "schedule2tier2"></div></td>
+	</tr>
 </table>
+</br>
+<table>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;">Data in use:</td>
+		<td style="padding-left:15px; padding-right:15px;">Last updated:</td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><input type="radio" id="webpageDataUsed" onclick="updateSchedulePanel()" name="dataUsed" value="webpage" /><label>Webpage</label></td>
+		<td style="padding-left:15px; padding-right:15px;"><div id = "webpageLastUpdated"></div></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><input type="radio" id="localDataUsed" onclick="updateSchedulePanel()" name="dataUsed" value="local" /><label>Local</label></td>
+		<td style="padding-left:15px; padding-right:15px;"><div id = "localLastUpdated"></div></td>
+	</tr>
+</table>
+</br>
+<table>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><b>Recalculate Time Tables</b></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><label>Date of last known Tier 1 Rift: </label><input type="date" id="localDate" value="2022-01-01" /></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><label>Start time of last known Tier 1 Rift: </label><input type="time" id="localTime" /></td>
+	</tr>
+	<tr>
+		<td style="padding-left:15px; padding-right:15px;"><button onclick="recalculateSchedule()">Recalculate</button></td>
+	</tr>
+</table>
+<p>Rift times seems to follow more of a static schedule but it drifts by a few minutes each day.</p>
 </body>
 <script>
+const webpageDataUsedRadio = document.getElementById('webpageDataUsed');
+webpageDataUsedRadio.checked = true;
+	
+if (localDate) {
+	if (localDate >= referenceDate.valueOf()) {
+		const localDataUsedRadio = document.getElementById('localDataUsed');
+		localDataUsedRadio.checked = true;
+	}
+}	
 updatePage();
 </script>
 </html>
